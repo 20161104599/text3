@@ -9,6 +9,8 @@
 #include <iostream>
 #include <cstring>
 #include <String>
+#include <fstream>
+#include <vector>
 using namespace std;
 struct Student
 {
@@ -32,7 +34,7 @@ struct Referee
 };
 struct Student s[100];
 struct Referee r[100];
-void Sort(Student *s)
+void Sort(Student *s,int n)
 {
     int i,j;
     struct Student temp;
@@ -48,6 +50,13 @@ void Sort(Student *s)
             }
         }
     }
+    cout<<"平均分排序输出"<<endl;
+    for(i=0;i<n;i++)
+    {
+       cout<<s[i].agv<<endl;
+    }
+    
+    
 }
 void input(Student *s,int n )
 {
@@ -156,32 +165,93 @@ void output(Student *s,int n,Referee *r)
     }
 }
 
-/*int menu();
- {
- cout << "|--------------------------------------|\n";
- cout << "|----------欢迎使用系统------------------|\n";
- cout << "|--------------------------------------|\n";
- cout << "|------   1:输入参赛者信息         -------|\n";
- cout << "|------   2:修改裁判员信息         -------|\n";
- cout << "|------   3:读取参赛员信息         -------|\n";
- cout << "|------   4:读取裁判员信息         -------|\n";
- cout << "|------   5:输入参赛者成绩         -------|\n";
- cout << "|------   6:最高分 最低分 平均分    -------|\n";
- cout << "|------   7:参赛者成绩排序显示      -------|\n";
- cout << "            \n请输入选项          “；
- cin >> i;
+void saveStudent(Student *s,int n)
+{
+    int i;
+    ofstream outfile;
+    outfile.open("//Users//20161104599//Desktop//text//student.csv");
+    outfile<<"姓名"<<','<<"性别"<<','<<"节目名称"<<','<<"节目类型"<<','<<"班级"<<','<<"电话"<<endl;
+    for(i=0;i<n;i++)
+    {
+        outfile<<s[i].name<<',';
+        outfile<<s[i].sex<<',';
+        outfile<<s[i].Program<<',';
+        outfile<<s[i].form<<',';
+        outfile<<s[i].Class<<',';
+        outfile<<s[i].tel<<endl;
+    }
+}
+void saveReferee(Referee *r)
+    {
+        int i;
+        ofstream outfile;
+        outfile.open("//Users//20161104599//Desktop//text//referee.csv");
+        outfile<<"姓名"<<','<<"性别"<<','<<"电话"<<endl;
+        for(i=0;i<5;i++)
+        {
+            outfile<<r[i].name<<',';
+            outfile<<r[i].sex<<',';
+            outfile<<r[i].tel<<endl;
+        }
+    }
+int menu()
+    {
+        int item;
+        cout << "|-----------------------------------------|\n";
+        cout << "|-------------欢迎使用系统------------------|\n";
+        cout << "|-----------------------------------------|\n";
+        cout << "|------      1:输入参赛者信息         -------|\n";
+        cout << "|------      2:输入裁判员信息         -------|\n";
+        cout << "|------      3:输入参赛员成绩         -------|\n";
+        cout << "|------      4:显示参赛员信息         -------|\n";
+        cout << "|------      5:参赛者成绩排序显示      -------|\n";
+        cout << "|------      6:储存信息              -------|\n";
+        cout << "|------      7:退出系统              -------|\n";
+        do
+        {
+            cout<<"请输入序号（1-7）";
+            cin >> item;
+            
+        }while(item<1||item>7);
+        return item;
+
+    }
+
  
- do{
- 
- }
- 
- */
 
 int main(int argc, const char * argv[]) {
    
-    inputs(s);
-    inputr(r);
-    input(s,s[0].f);
-    output(s,s[0].f,r);
-    return 0;
-}
+        while(1)
+    {
+        switch(menu())
+        {
+            case 1:
+                inputs(s);
+                break;
+            
+            case 2:
+                inputr(r);
+                break;
+            
+            case 3:
+                input(s,s[0].f);
+                break;
+            case 4:
+                output(s,s[0].f,r);
+                break;
+                
+            case 5:
+                Sort(s,s[0].f);
+                break;
+            case 6:
+                saveStudent(s,s[0].f);
+                saveReferee(r);
+                break;
+            
+                
+                
+                
+        }
+        
+    }
+    }
