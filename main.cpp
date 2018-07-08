@@ -247,7 +247,10 @@ int main(int argc, const char * argv[]) {
                 saveStudent(s,s[0].f);
                 saveReferee(r);
                 break;
-            
+            case 7:
+                cout<<"谢谢使用"<<endl;
+                return 0;
+                break;
                 
                 
                 
